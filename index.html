@@ -1,0 +1,187 @@
+<<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="UTF-8">
+<title>Dr. Smile 😄</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: linear-gradient(135deg, #dff6ff, #ffffff);
+  text-align: center;
+  padding: 30px;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  max-width: 520px;
+  margin: auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+h1 {
+  color: #2d89ef;
+}
+
+button {
+  padding: 12px;
+  margin: 8px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  cursor: pointer;
+  background: #cceeff;
+}
+
+button:hover {
+  background: #99ddff;
+}
+
+#drsmile {
+  margin-top: 15px;
+  min-height: 60px;
+  color: #444;
+}
+
+#badge {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#restartBtn {
+  display: none;
+  margin-top: 15px;
+  background: #ffd699;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>🧑‍⚕️ Dr. Smile</h1>
+
+  <h2 id="question">A ke frikë nga dentisti?</h2>
+
+  <button onclick="answer(0)">Jo fare</button>
+  <button onclick="answer(1)">Pak</button>
+  <button onclick="answer(2)">Po</button>
+
+  <div id="drsmile">QIUZ nga Dr. Smile 😊</div>
+  <div id="badge"></div>
+
+  <button id="restartBtn" onclick="restart()">🔄 Fillo përsëri</button>
+</div>
+
+<script>
+
+let step = 0;
+let score = 0;
+
+const pyetjet = [
+  "A ke frikë nga dentisti?",
+  "A i lan dhëmbët 2 herë në ditë?",
+  "A je i qetë kur vjen në klinikën Vivadent?",
+  "A mendon se dentisti të ndihmon?"
+];
+
+function answer(vlera) {
+  score += vlera;
+  step++;
+
+  let mesazh = getMessage(step - 1, vlera);
+  document.getElementById("drsmile").innerText = mesazh;
+
+  if (step < pyetjet.length) {
+    document.getElementById("question").innerText = pyetjet[step];
+  } else {
+    showResult();
+  }
+}
+
+/* MESAZHET */
+function getMessage(questionIndex, v) {
+
+  if (questionIndex === 0) {
+    if (v === 0) return "BRAVO!Je shume i guximshem!😄";
+    if (v === 1) return "🙂 Pak frikë është normale!";
+    if (v === 2) return "❤️ Nuk ke pse të kesh frikë!";
+  }
+
+  if (questionIndex === 1) {
+    if (v === 0) return "⚠️KUJDES! Duhet t’i lash 2 herë në ditë!";
+    if (v === 1) return "🙂 Duhet t’i lash 2 herë në ditë ne mengjes dhe ne darke!";
+    if (v === 2) return "🏆 Bravo! 2 herë në ditë është perfekte!";
+  }
+
+  if (questionIndex === 2) {
+    if (v === 0) return "❤️Mos ki frike! Je i sigurt!";
+    if (v === 1) return "🙂 Pak emocion është normal!";
+    if (v === 2) return "😄 Bravo! Je shumë i qetë!";
+  }
+
+  if (questionIndex === 3) {
+    if (v === 0) return "❤️ Do ndihesh më mirë me kohën!";
+    if (v === 1) return "🙂 Shumë mirë!";
+    if (v === 2) return "❤️ Është në rregull!";
+  }
+
+  return "";
+}
+
+function showResult() {
+  document.getElementById("question").innerText = "Rezultati yt 🎯";
+
+  let result = "";
+
+  if (score <= 2) {
+    result = "🏆 Brave Kid! 😄";
+    konfeti();
+  } 
+  else if (score <= 5) {
+    result = "⭐ Shumë mirë 🙂";
+  } 
+  else {
+    result = "E kalove kete test me sukses!💙";
+  }
+
+  document.getElementById("badge").innerText = result;
+  document.getElementById("drsmile").innerText = "Dr. Smile është krenar për ty 😊";
+
+  document.getElementById("restartBtn").style.display = "inline-block";
+}
+
+function restart() {
+  step = 0;
+  score = 0;
+
+  document.getElementById("question").innerText = pyetjet[0];
+  document.getElementById("drsmile").innerText = "QIUZ nga Dr. Smile 😊";
+  document.getElementById("badge").innerText = "";
+  document.getElementById("restartBtn").style.display = "none";
+}
+
+function konfeti() {
+  for (let i = 0; i < 50; i++) {
+    let c = document.createElement("div");
+
+    c.style.position = "fixed";
+    c.style.left = Math.random() * window.innerWidth + "px";
+    c.style.top = "-10px";
+    c.style.width = "10px";
+    c.style.height = "10px";
+    c.style.background = ["red","blue","green","yellow"][Math.floor(Math.random()*4)];
+
+    document.body.appendChild(c);
+
+    setTimeout(() => c.remove(), 3000);
+  }
+}
+
+</script>
+
+</body>
+</html>
